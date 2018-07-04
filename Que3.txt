@@ -1,0 +1,43 @@
+import pymysql as pm
+
+try:
+    con = pm.connect(host='localhost', database='acadviewdb', \
+                     user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'select * from Authors where AuthorID=1234567890'
+
+    cursor.execute(query)
+
+    data = cursor.fetchall()
+
+    for row in data:
+        print('AuthorID: {}, FirstName: {} ,MiddleName: {} ,LastName: {}' .format(row[0], row[1], row[2], row[3]))
+
+    query2 = 'update Authors set AuthorID=AuthorID+1 where LastName = "Santoshi"'
+
+    cursor.execute(query2)
+
+    query3 = 'select * from Authors where LastName = "Santoshi"'
+
+    cursor.execute(query3)
+
+    data = cursor.fetchall()
+
+    for row in data:
+        print('AuthorID: {}, FirstName: {} ,MiddleName: {} ,LastName: {}'.format(row[0], row[1], row[2], row[3]))
+
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
