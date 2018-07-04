@@ -1,0 +1,143 @@
+import pymysql as pm
+
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'insert into Authors(AuthorID, FirstName ,MiddleName ,LastName ) values(%s, %s, %s, %s)"
+
+    record = [1234567890, 'Raj', 'Kumar', 'Santoshi']
+
+    cursor.executemany(query, record)
+
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Authors Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'insert into ZipCodes(ZipCodeID ,City,State, ZipCode)'
+
+    record = [0987654321, 'Delhi', 'Delhi', 9999999999]
+
+    cursor.executemany(query, record)
+
+    con.commit()
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in ZipCodes Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'insert into Publisher(ZipCodeID,Name,StreetAddress, SuiteNumber, PublisherID)'
+
+    record = [0987654321, 'Delhi house', 'Maal road', 9876,9999999998]
+
+    cursor.executemany(query, record)
+
+    con.commit()
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Publisher Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table Titles(TitleID , Title , ISBN ,PublisherID,PublicationYear )'
+
+    record = [1234509876, 'Delhi Gold', 'ptmoiidek', 9876, 9999999998,2013]
+
+    cursor.executemany(query, record)
+
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Titles Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'insert into AuthorTitles(TitleID,AuthorID,AuthorTitleID)'
+
+    record = [1234509876, 1234567890, 9999992013]
+
+    cursor.executemany(query, record)
+
+    con.commit()
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in AuthorTitles Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'insert into Book(BookID, TitleID, Location , Genre )'
+
+    record = [6789012345, 1234509876, 'India','Thriller']
+
+    cursor.executemany(query, record)
+
+    con.commit()
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Book Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
