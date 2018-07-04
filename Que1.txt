@@ -1,0 +1,147 @@
+import pymysql as pm
+
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table Authors(AuthorID int(10) primary key , FirstName varchar(10),MiddleName varchar(10),LastName varchar(10))'
+
+    cursor.execute(query)
+
+    print('Authors Table created successfully!!')
+    
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Authors Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table ZipCodes(ZipCodeID varchar(10) primary key ,City varchar(10) ,State varchar(10), ZipCode int(10))'
+
+    cursor.execute(query)
+
+    print('ZipCodes Table created successfully!!') 
+ 
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in ZipCodes Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table Publisher(foreign key(ZipCodeID) references ZipCodeID(ZipCodeID),Name varchar(10) ,StreetAddress varchar(10), SuiteNumber  int(4), PublisherID int(10) primary key)'
+
+    cursor.execute(query)
+
+    print('Publisher Table created successfully!!')
+ 
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Publisher Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table Titles(TitleID primary key , Title varchar(10), ISBN varchar(10) ,foreign key(PublisherID) references PublisherID(PublisherID),PublicationYear int(4))'
+
+    cursor.execute(query)
+
+    print('Titles Table created successfully!!')
+ 
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Titles Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table AuthorTitles(foreign key(TitleID) references TitleID(TitleID),foreign key(AuthorID) references AuthorID(AuthorID),AuthorTitleID int(10) primary key)'
+
+    cursor.execute(query)
+
+    print('AuthorTitles Table created successfully!!')
+ 
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in AuthorTitles Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
+try:
+    con = pm.connect(host='localhost', database='Assignment', user='root', password='root')
+
+    cursor = con.cursor()
+
+    query = 'create table Book(BookID int(10) primary key, foreign key(TitleID) references TitleID(TitleID), Location varchar(10), Genre varchar(10))'
+
+    cursor.execute(query)
+
+    print('Book Table created successfully!!')
+ 
+    con.commit()
+
+except pm.DatabaseError as e:
+    if con:
+        con.rollback()
+        print('Problem occured in Book Table: ', e)
+
+finally:
+    if cursor:
+        cursor.close()
+    if con:
+        con.close()
+    print('DONE!!')
